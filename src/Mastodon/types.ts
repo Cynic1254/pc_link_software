@@ -1,4 +1,5 @@
-﻿import {z} from "zod";
+import {z} from "zod";
+import {type mastodon} from "masto";
 
 const uniqueStrings = (item: z.ZodString | z.ZodURL) =>
     z
@@ -57,3 +58,14 @@ export const SnapshotSchema = z.object({
 export type Status = z.infer<typeof StatusSchema>;
 export type Account = z.infer<typeof AccountSchema>;
 export type Snapshot = z.infer<typeof SnapshotSchema>;
+export type ApiStatus = mastodon.v1.Status;
+export type ApiAccount = mastodon.v1.Account;
+export type AccountCore = Omit<Account, "statuses">;
+
+export type Visibility = "public" | "unlisted" | "private" | "direct";
+
+export interface InstanceInfo {
+    domain: string;
+    title: string;
+    description: string;
+}
